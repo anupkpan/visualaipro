@@ -7,6 +7,10 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     define: {
       'process.env.OPENAI_API_KEY': JSON.stringify(env.OPENAI_API_KEY)
-    }
+    },
+    build: {
+      outDir: 'dist'       // <- ensure Vercel finds your build
+    },
+    base: '/'              // <- ensure links work on Vercel
   };
 });
