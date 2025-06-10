@@ -1,0 +1,11 @@
+{
+  "builds": [
+    {
+      "src": "vite.config.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "http://localhost:3000/api/$1" }
+  ]
+}
