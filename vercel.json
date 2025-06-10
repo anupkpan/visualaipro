@@ -2,10 +2,13 @@
   "builds": [
     {
       "src": "vite.config.js",
-      "use": "@vercel/node"
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
     }
   ],
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "http://localhost:3000/api/$1" }
+  "routes": [
+    { "src": "/(.*)", "dest": "/" }
   ]
 }
