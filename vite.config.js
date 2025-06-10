@@ -9,8 +9,8 @@ export default defineConfig(({ mode }) => {
       'process.env.OPENAI_API_KEY': JSON.stringify(env.OPENAI_API_KEY)
     },
     build: {
-      outDir: 'dist'       // <- ensure Vercel finds your build
+      outDir: 'dist' // 👈 Vercel expects this directory for deployment
     },
-    base: '/'              // <- ensure links work on Vercel
+    base: '/' // 👈 Prevents broken links or 404s in deployed app
   };
 });
