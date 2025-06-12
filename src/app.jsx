@@ -75,7 +75,7 @@ export default function App() {
 
   return (
     <div style={{ fontFamily: 'Inter, sans-serif', padding: '20px', maxWidth: '700px', margin: '0 auto' }}>
-      {/* LOGO + Tagline Section */}
+      {/* LOGO + Tagline Section — changed to trigger redeploy 🚀 */}
       <div style={{
         display: 'flex',
         flexDirection: 'column',
@@ -83,19 +83,18 @@ export default function App() {
         textAlign: 'center',
         marginBottom: '40px'
       }}>
-    <picture>
-  <source srcSet="/logo-light.png" media="(prefers-color-scheme: dark)" />
-  <img
-    src="/logo-dark.png"
-    alt="The Youth Venture Icon"
-    style={{ height: '64px', marginBottom: '12px', borderRadius: '8px' }}
-  />
-</picture>
-
+        <picture>
+          <source srcSet="/logo-light.png" media="(prefers-color-scheme: dark)" />
+          <img
+            src="/logo-dark.png"
+            alt="The Youth Venture Icon"
+            style={{ height: '64px', marginBottom: '12px', borderRadius: '8px' }}
+          />
+        </picture>
 
         <h1 style={{ fontSize: '1.8rem', margin: 0 }}>The Youth Venture</h1>
         <p style={{ fontSize: '1rem', color: '#444', marginTop: '8px' }}>
-          Bringing AI to Life — Visually for Everyone
+          Bringing AI to Life — Visually for Everyone ✨
         </p>
       </div>
 
