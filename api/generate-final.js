@@ -2,13 +2,6 @@ const axios = require('axios');
 
 module.exports = async (req, res) => {
   const { prompt } = req.body;
-  // rest remains unchanged...
-};
-
-import axios from 'axios';
-
-export default async function handler(req, res) {
-  const { prompt } = req.body;
 
   if (!prompt) {
     return res.status(400).json({ error: 'Prompt is required' });
@@ -20,7 +13,7 @@ export default async function handler(req, res) {
     const response = await axios.post(
       'https://api.openai.com/v1/chat/completions',
       {
-        model: 'gpt-4o',  // (or gpt-3.5-turbo if you want cheaper)
+        model: 'gpt-4o',  // or gpt-3.5-turbo if needed
         messages: [
           {
             role: 'system',
@@ -51,4 +44,4 @@ export default async function handler(req, res) {
     console.error("FINAL GPT ERROR:", err);
     res.status(500).json({ error: 'Failed to generate final output', detail: err.message });
   }
-}
+};
