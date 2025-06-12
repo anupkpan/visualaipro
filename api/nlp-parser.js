@@ -1,23 +1,20 @@
-const axios = require('axios');
-
-module.exports = async (req, res) => {
-  const { question } = req.body;
-  // rest remains unchanged...
-};
-
-
 import axios from 'axios';
 
 export default async function handler(req, res) {
   const { question } = req.body;
 
+  console.log("OPENAI_API_KEY present:", !!process.env.OPENAI_API_KEY);
+
   if (!question) {
     return res.status(400).json({ error: 'Question is required' });
   }
 
-  try {
-    const openai_api_key = process.env.OPENAI_API_KEY;
+  const openai_api_key = process.env.OPENAI_API_KEY;
+  if (!openai_api_key) {
+    return res.status(500).json({ error: 'Missing OpenAI API Key in server environment' });
+  }
 
+  try {
     const response = await axios.post(
       'https://api.openai.com/v1/chat/completions',
       {
@@ -57,11 +54,8 @@ Example:
     );
 
     let text = response.data.choices[0].message.content;
-
-    // 🧹 Clean GPT output (remove markdown, code blocks, etc)
     text = text.replace(/```json/g, '').replace(/```/g, '').trim();
 
-    // 🔍 Extract JSON array safely
     const arrayMatch = text.match(/\[[\s\S]*\]/);
     let parsedSliders;
 
@@ -73,7 +67,6 @@ Example:
       }
     }
 
-    // 🚨 Fallback if GPT failed or output invalid
     if (!Array.isArray(parsedSliders) || parsedSliders.length === 0) {
       console.warn("GPT failed to return valid sliders. Using fallback defaults.");
       parsedSliders = [
