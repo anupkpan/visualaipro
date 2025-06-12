@@ -2,6 +2,13 @@ const axios = require('axios');
 
 module.exports = async (req, res) => {
   const { prompt } = req.body;
+  // rest remains unchanged...
+};
+
+import axios from 'axios';
+
+export default async function handler(req, res) {
+  const { prompt } = req.body;
 
   if (!prompt) {
     return res.status(400).json({ error: 'Prompt is required' });
@@ -10,14 +17,10 @@ module.exports = async (req, res) => {
   try {
     const openai_api_key = process.env.OPENAI_API_KEY;
 
-    if (!openai_api_key) {
-      throw new Error('Missing OPENAI_API_KEY');
-    }
-
     const response = await axios.post(
       'https://api.openai.com/v1/chat/completions',
       {
-        model: 'gpt-4o',
+        model: 'gpt-4o',  // (or gpt-3.5-turbo if you want cheaper)
         messages: [
           {
             role: 'system',
@@ -40,11 +43,12 @@ module.exports = async (req, res) => {
 
     let output = response.data.choices[0].message.content;
 
+    // 🧹 Clean GPT output (remove markdown if it disobeys instructions)
     output = output.replace(/```(json|text)?/g, '').replace(/```/g, '').trim();
 
     res.status(200).json({ output });
   } catch (err) {
-    console.error("FINAL GPT ERROR:", err.message);
+    console.error("FINAL GPT ERROR:", err);
     res.status(500).json({ error: 'Failed to generate final output', detail: err.message });
   }
-};
+}
